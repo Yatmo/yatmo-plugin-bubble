@@ -15,13 +15,14 @@ function(instance, context) {
 
 function(instance, properties, context) {
   // update
+  // The key: the element's field, else the plugin key set once in the app's Plugins tab (Additional keys).
   var esc = function (v) { return String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); };
   var attr = function (name, value) { return (value === undefined || value === null || value === '' || value === 'off') ? '' : ' ' + name + '="' + esc(value) + '"'; };
   var location = (properties.latitude !== undefined && properties.longitude !== undefined && properties.latitude !== null && properties.longitude !== null)
     ? attr('latitude', properties.latitude) + attr('longitude', properties.longitude)
     : attr('address', properties.address);
   var marker = properties.marker || 'pin';
-  var html = '<yatmo-map' + attr('key', properties.license_key) + attr('country', properties.country || 'BE') + attr('language', properties.language || 'EN') + location
+  var html = '<yatmo-map' + attr('key', properties.license_key || (context.keys && context.keys.license_key) || '') + attr('country', properties.country || 'BE') + attr('language', properties.language || 'EN') + location
     + attr('mode', properties.mode) + attr('zoom', properties.zoom) + attr('map-style', properties.map_style) + attr('accent-color', properties.accent_color)
     + attr('marker', marker) + (marker === 'circle' ? attr('circle-radius', properties.circle_radius || 300) : '') + attr('rounded', properties.rounded || '')
     + attr('isochrone', properties.isochrone) + attr('route-from', properties.route_from) + attr('height', '100%') + ' style="display:block;height:100%"></yatmo-map>';

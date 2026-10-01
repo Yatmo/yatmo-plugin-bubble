@@ -15,13 +15,15 @@ Bubble n'a pas d'API ni de CLI pour les plugins : tout se saisit dans l'**édite
 | Icon | `Plugins/WordPress/yatmo-map/assets/icon-256x256.png` |
 | License | MIT (texte libre) |
 
-## 2. Onglet Shared (headers)
+## 2. Onglet Shared
 
-Dans **Shared headers** (chargés une fois par page), coller `shared-headers.html` :
+**HTML header** (chargé une fois par page), coller `shared-headers.html` :
 
 ```html
 <script type="module" src="https://cdn.jsdelivr.net/npm/@yatmo/elements@1/dist/yatmo-elements.js"></script>
 ```
+
+**Additional keys** : Key name `license_key`, type *client-side safe*. L'app qui installe le plugin saisit alors sa clé frontend une fois dans son onglet Plugins ; les éléments la lisent (`context.keys.license_key`) quand leur champ `license_key` est vide.
 
 ## 3. Onglet Elements
 
@@ -33,7 +35,7 @@ Fields :
 
 | Name | Caption | Type | Default | Note |
 |---|---|---|---|---|
-| `license_key` | Yatmo frontend key | text | | obligatoire |
+| `license_key` | Yatmo frontend key | text | | vide = la clé de plugin saisie dans l'onglet Plugins de l'app (voir §2) |
 | `country` | Country | text | `BE` | code pays |
 | `language` | Language | text | `EN` | |
 | `address` | Address | text | | ou latitude + longitude |
